@@ -1,0 +1,38 @@
+<a href = '/'>Home</a>
+
+<h1>
+  Rate Your Experience for Fitness Facilities at <%= @gym.name %>
+
+</h1>
+
+
+<%= form_for Rating.new, url: '/post_rating' do |foo| %>
+<%= foo.hidden_field :gym_id, value: @gym.id %>
+<%= foo.label :stars %>
+<%= foo.select(:stars, [['1 star', 1], ['2 stars', 2], ['3 stars', 3], ['4 stars', 4], ['5 stars', 5]]) %>
+  
+<br>
+    <%= foo.label :comments %>
+<br>
+
+<%= foo.text_area :comments %>
+<br>
+  <%= foo.submit %>
+  <% end %>
+
+
+<br>
+<br>
+
+<% @ratings.each do |f| %>
+<ul>
+  <li>
+<%= f.stars %>Star(s): <%= f.comments %>
+<% if f.user %>
+    <br>
+(Rating by <%= f.user.email %>)
+<% end %>
+  </li>
+</ul>
+<br>
+<% end %>
