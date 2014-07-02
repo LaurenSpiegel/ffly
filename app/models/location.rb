@@ -1,9 +1,7 @@
-class Gym
+class Location
   include Mongoid::Document
   
-  has_many :ratings
-  belongs_to :location
+  has_many :gyms
   
   field :name, type: String
- 
 end

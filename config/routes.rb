@@ -1,7 +1,10 @@
 
 Rails.application.routes.draw do
-  get '/' => 'gyms#index'
+  get '/' => 'locations#index'
+  get '/locations/:id' => 'locations#show'
+  get '/gyms' => 'gyms#index' 
   get '/gyms/:id' => 'gyms#show'
+  post '/gym_create' => 'gyms#create'
   post '/post_rating' => 'ratings#create'
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'

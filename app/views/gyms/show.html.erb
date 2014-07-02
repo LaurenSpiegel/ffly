@@ -9,13 +9,14 @@
 <%= form_for Rating.new, url: '/post_rating' do |foo| %>
 <%= foo.hidden_field :gym_id, value: @gym.id %>
 <%= foo.label :stars %>
+<br>
 <%= foo.select(:stars, [['1 star', 1], ['2 stars', 2], ['3 stars', 3], ['4 stars', 4], ['5 stars', 5]]) %>
-  
+<br>  
 <br>
     <%= foo.label :comments %>
 <br>
 
-<%= foo.text_area :comments %>
+<%= foo.text_area :comments, :size => "60%x5%" %>
 <br>
   <%= foo.submit %>
   <% end %>
@@ -27,7 +28,7 @@
 <% @ratings.each do |f| %>
 <ul>
   <li>
-<%= f.stars %>Star(s): <%= f.comments %>
+<%= f.stars %> Star(s): <%= f.comments %>
 <% if f.user %>
     <br>
 (Rating by <%= f.user.email %>)
