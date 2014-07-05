@@ -1,14 +1,16 @@
 class GymsController < ApplicationController
   def index
-    @gyms = Gym.all
+    @gyms = Gym.asc(:name)
+   
   end
   
   def show
     @gym = Gym.find(params[:id])
     @ratings = @gym.ratings
+    @location =@gym.location
   end
   
-  #need to add view and routes for this
+
    def create
     gym = Gym.new
     gym.name = params[:gym][:name]

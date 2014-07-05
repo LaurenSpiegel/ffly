@@ -18,22 +18,44 @@
 
 <%= foo.text_area :comments, :size => "60%x5%" %>
 <br>
+<br>
+<%= foo.label "Submt a pic" %>
+<br>
+<%= foo.file_field :image %>  
+<br>
+<br>
   <%= foo.submit %>
   <% end %>
 
 
 <br>
-<br>
 
+<h3>Prior Ratings</h3>
 <% @ratings.each do |f| %>
 <ul>
   <li>
-<%= f.stars %> Star(s): <%= f.comments %>
+    <strong><%= f.stars %> Star(s)</strong>: <%= f.comments %>
 <% if f.user %>
     <br>
 (Rating by <%= f.user.email %>)
+    <br>
 <% end %>
+    <br>
+     <img src='<%= f.image %>' height="200" width="280"/>
   </li>
 </ul>
 <br>
 <% end %>
+<br>
+<br>
+<script type="text/javascript" src="http://widgets.active.com/widgets/nearyou/widget-a3.min.js"></script>
+<script type="text/javascript">
+  new ActiveNetwork.NearYouWidget({"title":"Fitness Activities Near This Hotel","num":"5","keywords":"","activity":"any","showActivitySelector":true,"type":"event","location":"<%= @location.zip %>","showLocationSelector":false,"affiliate":"","placement":"","campaign":"150457","width":294,"height":383,"style":{"frame":{"background-color":"#ffffff"},"title":{"color":"#ffffff"},"window":{"background-color":"#ffffff"},"text":{"color":"#5b5c5c","border-color":"#5b5c5c"},"links":{"color":"#196e9c"},"buttons":{"background-color":"#f5ba46"},"tags":{"background-color":"#ffffff"}}}).render();
+</script>
+
+
+
+
+
+
+

@@ -5,6 +5,6 @@ class LocationsController < ApplicationController
   
   def show
     @location = Location.find(params[:id])
-    @gyms = @location.gyms
+    @gyms = @location.gyms.asc(:name)
   end
 end
