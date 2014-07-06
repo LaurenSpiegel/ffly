@@ -9,4 +9,9 @@ class RatingsController < ApplicationController
     rating.save!
     redirect_to "/gyms/#{rating.gym_id}"
   end
+  
+  
+
+  
+  
 end

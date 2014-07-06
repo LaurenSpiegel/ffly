@@ -8,6 +8,7 @@ class GymsController < ApplicationController
     @gym = Gym.find(params[:id])
     @ratings = @gym.ratings
     @location =@gym.location
+    @average_stars = @ratings.avg(:stars)
   end
   
 

@@ -5,22 +5,36 @@
 
 </h1>
 
-
+<br>
 <%= form_for Rating.new, url: '/post_rating' do |foo| %>
 <%= foo.hidden_field :gym_id, value: @gym.id %>
-<%= foo.label :stars %>
+
+<fieldset class="stars">
+    <legend>Rating:</legend>
+    <input type="radio" id="star5" name="rating[stars]" value= 5 /><label for="star5" title="Better than my gym at home!">5 stars</label>
+    <input type="radio" id="star4" name="rating[stars]" value= 4 /><label for="star4" title="Pretty good">4 stars</label>
+    <input type="radio" id="star3" name="rating[stars]" value= 3 /><label for="star3" title="Meh">3 stars</label>
+    <input type="radio" id="star2" name="rating[stars]" value= 2 /><label for="star2" title="Pretty bad">2 stars</label>
+    <input type="radio" id="star1" name="rating[stars]" value= 1 /><label for="star1" title="Never returning">1 star</label>
+</fieldset>
+
+  
+<!-- <%= foo.label :stars %>  -->
 <br>
-<%= foo.select(:stars, [['1 star', 1], ['2 stars', 2], ['3 stars', 3], ['4 stars', 4], ['5 stars', 5]]) %>
+<!-- <%= foo.select(:stars, [['1 star', 1], ['2 stars', 2], ['3 stars', 3], ['4 stars', 4], ['5 stars', 5]]) %> 
+-->
 <br>  
 <br>
-    <%= foo.label :comments %>
+<br>
+<br>
+<legend>Comments:</legend>   
 <br>
 
 <%= foo.text_area :comments, :size => "60%x5%" %>
 <br>
 <br>
-<%= foo.label "Submt a pic" %>
-<br>
+<legend>Submit a Pic:</legend>
+<!-- <%= foo.label "Submt a pic" %>  -->
 <%= foo.file_field :image %>  
 <br>
 <br>
@@ -30,8 +44,9 @@
 
 <br>
 
-<h3>Prior Ratings</h3>
-<% @ratings.each do |f| %>
+<h3>Prior Ratings: <%= @average_stars %> Stars</h3>
+<br>
+<% @ratings.reverse_each do |f| %>
 <ul>
   <li>
     <strong><%= f.stars %> Star(s)</strong>: <%= f.comments %>
@@ -40,8 +55,10 @@
 (Rating by <%= f.user.email %>)
     <br>
 <% end %>
+    <% if f.image_file_name != nil %>
     <br>
      <img src='<%= f.image %>' height="200" width="280"/>
+    <% end %>
   </li>
 </ul>
 <br>
