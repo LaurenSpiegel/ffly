@@ -1,50 +1,16 @@
 <a href = '/'>Home</a>
-
+<br>
+<a href= "/gyms/<%= @gym.id %>/rating">Submit a review for this Fitness Facility</a> 
 <h1>
-  Rate Your Experience for Fitness Facilities at <%= @gym.name %>
+  Reviews for Fitness Facilities at <%= @gym.name %>
 
 </h1>
 
 <br>
-<%= form_for Rating.new, url: '/post_rating' do |foo| %>
-<%= foo.hidden_field :gym_id, value: @gym.id %>
 
-<fieldset class="stars">
-    <legend>Rating:</legend>
-    <input type="radio" id="star5" name="rating[stars]" value= 5 /><label for="star5" title="Better than my gym at home!">5 stars</label>
-    <input type="radio" id="star4" name="rating[stars]" value= 4 /><label for="star4" title="Pretty good">4 stars</label>
-    <input type="radio" id="star3" name="rating[stars]" value= 3 /><label for="star3" title="Meh">3 stars</label>
-    <input type="radio" id="star2" name="rating[stars]" value= 2 /><label for="star2" title="Pretty bad">2 stars</label>
-    <input type="radio" id="star1" name="rating[stars]" value= 1 /><label for="star1" title="Never returning">1 star</label>
-</fieldset>
-
-  
-<!-- <%= foo.label :stars %>  -->
-<br>
-<!-- <%= foo.select(:stars, [['1 star', 1], ['2 stars', 2], ['3 stars', 3], ['4 stars', 4], ['5 stars', 5]]) %> 
--->
-<br>  
-<br>
-<br>
-<br>
-<legend>Comments:</legend>   
-<br>
-
-<%= foo.text_area :comments, :size => "60%x5%" %>
-<br>
-<br>
-<legend>Submit a Pic:</legend>
-<!-- <%= foo.label "Submt a pic" %>  -->
-<%= foo.file_field :image %>  
-<br>
-<br>
-  <%= foo.submit %>
-  <% end %>
+<h3> <%= @average_stars %> Stars</h3>
 
 
-<br>
-
-<h3>Prior Ratings: <%= @average_stars %> Stars</h3>
 <br>
 <% @ratings.reverse_each do |f| %>
 <ul>
@@ -63,6 +29,40 @@
 </ul>
 <br>
 <% end %>
+<br>
+<a href= "/gyms/<%= @gym.id %>/rating">Submit your own review for this Fitness Facility</a> 
+<br>
+<br>
+<iframe
+  width="450"
+  height="250"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/search?key=AIzaSyB4DxXvqtmIsUaUSaxvRhKaNlMk3R89780&q=gyms+near+<%= @location.zip.to_s %>">
+</iframe>
+
+<br>
+<br>
+<h3>Fitness Activities Nearby</h3>
+<% resp = RestClient.get("http://api.amp.active.com/v2/search?zip=#{@location.zip.to_s}&radius=25&per_page=5&exclude_children=true&category=races&exists=asset.cityName&exists=asset.placeName&exists=asset.seoURL&exists=asset.assetName&exists=asset.activityStartDate&api_key=9kup34r9upvkkcnpquupxrzp&sort=date_asc") %>
+<% doc = JSON.parse(resp) %>
+<%  @events = doc['results'] %>
+
+<ul>
+  <% @events.each do |event| %>
+  <li>
+    <%= event['assetName'] %><br>
+    <%= event['place']['placeName'] %><br>>
+    <%= event['place']['cityName'] %><br>
+    <%= event['activityStartDate'] %><br>
+    <a href="<%= event['assetLegacyData']['seoURL'] %>"> Sign up Here</a>
+    </a>
+  </li>
+  <% end %>
+</ul>
+
+
+
+
 <br>
 <br>
 <script type="text/javascript" src="http://widgets.active.com/widgets/nearyou/widget-a3.min.js"></script>

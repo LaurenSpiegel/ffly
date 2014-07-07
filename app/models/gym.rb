@@ -5,5 +5,7 @@ class Gym
   belongs_to :location
   
   field :name, type: String
+  
+  validates :name, uniqueness: true
  
 end

@@ -9,6 +9,10 @@ class GymsController < ApplicationController
     @ratings = @gym.ratings
     @location =@gym.location
     @average_stars = @ratings.avg(:stars)
+    
+    if @average_stars
+      @average_stars.round(2)
+    end
   end
   
 
@@ -16,8 +20,13 @@ class GymsController < ApplicationController
     gym = Gym.new
     gym.name = params[:gym][:name]
     gym.location_id = params[:gym][:location_id]
-    gym.save!
-    redirect_to "/locations/#{gym.location_id}"
+    #gym.save!
+     if gym.save
+      redirect_to "/locations/#{gym.location_id}"
+   else
+       flash[:notice] = "We have that location covered!" 
+      redirect_to "/gyms"
+    end
   end
   
 end

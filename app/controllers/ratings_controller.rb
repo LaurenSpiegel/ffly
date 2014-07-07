@@ -10,7 +10,9 @@ class RatingsController < ApplicationController
     redirect_to "/gyms/#{rating.gym_id}"
   end
   
-  
+  def new
+    @gym = Gym.find(params[:id])
+  end
 
   
   
