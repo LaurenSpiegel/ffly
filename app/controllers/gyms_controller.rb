@@ -20,6 +20,7 @@ class GymsController < ApplicationController
     gym = Gym.new
     gym.name = params[:gym][:name]
     gym.location_id = params[:gym][:location_id]
+    gym.coords = Geocoder.coordinates("#{gym.name}")
     #gym.save!
      if gym.save
       redirect_to "/locations/#{gym.location_id}"

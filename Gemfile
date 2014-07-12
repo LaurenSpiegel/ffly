@@ -43,3 +43,7 @@ gem 'mongoid', '~> 4.0.0.rc1', github: 'mongoid/mongoid'
 gem 'rest-client'
 
 gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
+
+gem 'geocoder'
+
+
